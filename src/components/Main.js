@@ -90,7 +90,6 @@ const Main = () => {
             Adicionar Cliente
           </Button>
         </div>
-
         {/* Component Button do bootstrap. */}
         <Form.Group className="mb-3">
           <Form.Label>Alimento</Form.Label>

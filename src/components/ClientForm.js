@@ -39,12 +39,12 @@ const ClientForm = ({ show, handleCloseClientModal, clientes, setClientes}) => {
       </Modal.Header>
       <Form onSubmit={handleOnSubmit}>
         <Modal.Body>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Nome</Form.Label>
             <Form.Control
-              type="text"
+              type="textarea"
               placeholder="Nome"
-              name="name"
+              required name="name"
               onChange={handleChange}
               value={client.name}
             />
@@ -53,33 +53,31 @@ const ClientForm = ({ show, handleCloseClientModal, clientes, setClientes}) => {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>E-mail</Form.Label>
             <Form.Control
-              type="text"
+              type="textarea"
               placeholder="E-mail"
-              name="email"
+              required name="email"
               onChange={handleChange}
               value={client.email}
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="formBasicDateOfBirth">
             <Form.Label>Data de Nascimento</Form.Label>
             <Form.Control
-              as="textarea"
-              type="text"
+              type="date"
               placeholder="Data de Nascimento"
-              name="dateofbirth"
+              required name="dateofbirth"
               onChange={handleChange}
               value={client.dateofbirth}
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="formBasicCep">
             <Form.Label>CEP</Form.Label>
             <Form.Control
-              as="textarea"
-              type="text"
+              type="int"
               placeholder="CEP"
-              name="cep"
+              required name="cep"
               onChange={handleChange}
               value={client.cep}
             />
