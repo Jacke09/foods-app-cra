@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
-const FoodForm = ({ show, handleClose, foods, setFoods }) => {
+const FoodForm = ({ show, handleCloseFoodModal, foods, setFoods }) => {
   // var {} = props;
 
   let [food, setFood] = useState({ name: '', image: '' });
@@ -13,7 +13,7 @@ const FoodForm = ({ show, handleClose, foods, setFoods }) => {
   const handleOnSubmit = (event) => {
     event.preventDefault();
     // Enviar os dados para o servidor backend.
-    fetch('http://localhost:4000/foods', {
+    fetch('http://localhost:3000/foods', {
       method: 'POST', // Método de envio.
       body: JSON.stringify(food), // Converte o Json em string
       headers: {
@@ -21,9 +21,9 @@ const FoodForm = ({ show, handleClose, foods, setFoods }) => {
       },
     })
       .then((response) => {
-        if (response.ok == true) {
+        if (response.ok === true) {
           // Fechar modal.
-          handleClose();
+          handleCloseFoodModal();
           return response.json();
         }
       })
@@ -35,7 +35,7 @@ const FoodForm = ({ show, handleClose, foods, setFoods }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleCloseFoodModal}>
       <Modal.Header closeButton>
         <Modal.Title>Cadastro de Comida</Modal.Title>
       </Modal.Header>
@@ -76,7 +76,7 @@ const FoodForm = ({ show, handleClose, foods, setFoods }) => {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleCloseFoodModal}>
             Fechar
           </Button>
           <Button type="submit" variant="primary">

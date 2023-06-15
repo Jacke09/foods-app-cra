@@ -4,16 +4,24 @@ import { Button, Form, Container, Row } from 'react-bootstrap';
 //import foods from '../models/foods';
 import Food from './Food';
 import FoodForm from './FoodForm';
+import ClientForm from './ClientForm';
 
 const Main = () => {
   let [foods, setFoods] = useState([]);
+  
+  let [clientes, setClientes] = useState([]);
 
   let [nome, setNome] = useState('');
 
-  const [show, setShow] = useState(false);
+  const [showFoodForm, setShowFoodForm] = useState(false);
+  const [showClientForm, setShowClientForm] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+  const handleCloseFoodModal = () => setShowFoodForm(false);
+  const handleShowFoodModal = () => setShowFoodForm(true);
+
+  const handleCloseClientModal = () => setShowClientForm(false);
+  const handleShowClientModal = () => setShowClientForm(true);
 
   let buttonAdd = useRef(null);
 
@@ -34,12 +42,23 @@ const Main = () => {
   };
 
   useEffect(() => {
-    fetch('http://localhost:4000/foods')
+    fetch('http://localhost:3000/foods')
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         setFoods([...data]);
+      })
+      .catch();
+  }, []);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/clientes')
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setClientes([...data]);
       })
       .catch();
   }, []);
@@ -56,10 +75,19 @@ const Main = () => {
           <Button
             variant="secondary"
             className="mr-4 font-weight-bold"
-            onClick={handleShow}
+            onClick={handleShowFoodModal}
             ref={buttonAdd}
           >
             + | Adicionar Preparação
+          </Button>
+
+          <Button
+            variant="secondary"
+            className="mr-4 font-weight-bold"
+            onClick={handleShowClientModal}
+            ref={buttonAdd}
+          >
+            Adicionar Cliente
           </Button>
         </div>
 
@@ -85,11 +113,18 @@ const Main = () => {
         </Row>
 
         <FoodForm
-          show={show}
-          handleClose={handleClose}
+          show={showFoodForm}
+          handleCloseFoodModal={handleCloseFoodModal}
           foods={foods}
           setFoods={setFoods}
         ></FoodForm>
+
+        <ClientForm
+          show={showClientForm}
+          handleCloseClientModal={handleCloseClientModal}
+          clientes={clientes}
+          setClientes={setClientes}
+        ></ClientForm>
       </Container>
     </main>
   );
